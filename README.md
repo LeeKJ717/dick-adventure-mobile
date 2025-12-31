@@ -45,7 +45,7 @@ python main.py
 
 ## 빌드 방법
 
-Windows 실행 파일로 빌드:
+### Windows 실행 파일
 
 ```bash
 python setup_cxfreeze.py build
@@ -56,6 +56,21 @@ python setup_cxfreeze.py build
 ```bash
 build.bat
 ```
+
+### 안드로이드 APK 빌드
+
+안드로이드 앱으로 빌드하려면 Linux 환경(WSL2 권장)이 필요합니다.
+
+자세한 내용은 [ANDROID_BUILD_GUIDE.md](ANDROID_BUILD_GUIDE.md)를 참조하세요.
+
+**빠른 시작:**
+```bash
+# Linux/WSL2에서
+pip install buildozer cython
+buildozer android debug
+```
+
+빌드된 APK는 `bin/` 디렉토리에 생성됩니다.
 
 ## 게임 플레이
 
@@ -75,6 +90,18 @@ build.bat
 ## 개발 정보
 
 이 게임은 Pygame을 사용하여 개발되었으며, 모바일 터치 입력을 완전히 지원합니다.
+
+### 플랫폼 지원
+
+- ✅ Windows (데스크톱)
+- ✅ Android (APK 빌드 가능)
+- ✅ 모바일 터치 컨트롤 (모든 플랫폼)
+
+### 구글 플레이 스토어 배포
+
+안드로이드 앱을 구글 플레이 스토어에 배포하려면:
+1. [ANDROID_BUILD_GUIDE.md](ANDROID_BUILD_GUIDE.md) 가이드를 따르세요
+2. AAB 파일을 빌드하고 구글 플레이 콘솔에 업로드하세요
 
 ## 라이선스
 

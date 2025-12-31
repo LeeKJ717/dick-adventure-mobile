@@ -1,0 +1,11 @@
+# 안드로이드 빌드용 요구사항
+# Buildozer가 자동으로 처리하지만, 참고용으로 유지
+
+pygame>=2.5.0
+Pillow>=10.0.0
+
+# 안드로이드 빌드 도구 (자동 설치됨)
+# buildozer
+# python-for-android
+# cython
+

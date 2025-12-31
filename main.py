@@ -22,8 +22,21 @@ from mobile_controls import MobileControls
 
 
 # 게임 상수
-SCREEN_WIDTH = 1280
-SCREEN_HEIGHT = 720
+# 안드로이드에서는 화면 크기를 동적으로 감지
+try:
+    import os
+    # 안드로이드 환경 감지
+    if 'ANDROID_ARGUMENT' in os.environ or 'ANDROID_PRIVATE' in os.environ:
+        # 안드로이드에서는 화면 크기를 나중에 설정
+        SCREEN_WIDTH = 0  # 동적으로 설정
+        SCREEN_HEIGHT = 0
+    else:
+        SCREEN_WIDTH = 1280
+        SCREEN_HEIGHT = 720
+except:
+    SCREEN_WIDTH = 1280
+    SCREEN_HEIGHT = 720
+
 FPS = 60
 BLOCK_SIZE = 32
 
@@ -141,8 +154,30 @@ def main():
     """메인 함수"""
     try:
         pygame.init()
+        
+        # 안드로이드에서 화면 크기 자동 감지
+        if SCREEN_WIDTH == 0 or SCREEN_HEIGHT == 0:
+            # 사용 가능한 모든 디스플레이 모드 가져오기
+            modes = pygame.display.list_modes()
+            if modes and len(modes) > 0:
+                # 가장 큰 해상도 사용 (일반적으로 기기의 네이티브 해상도)
+                SCREEN_WIDTH, SCREEN_HEIGHT = modes[0]
+            else:
+                # 기본값 사용
+                SCREEN_WIDTH = 1920
+                SCREEN_HEIGHT = 1080
+        
         # 하드웨어 가속 및 VSync 활성화로 성능 최적화
-        screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+        # 안드로이드에서는 FULLSCREEN 사용
+        try:
+            import os
+            if 'ANDROID_ARGUMENT' in os.environ or 'ANDROID_PRIVATE' in os.environ:
+                screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+            else:
+                screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.HWSURFACE | pygame.DOUBLEBUF)
+        except:
+            screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        
         pygame.display.set_caption("DEQJAM")
         clock = pygame.time.Clock()
         # 윈도우가 제대로 표시되도록 강제
